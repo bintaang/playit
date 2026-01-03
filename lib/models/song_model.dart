@@ -1,9 +1,11 @@
+import 'package:audio_metadata_reader/audio_metadata_reader.dart' as amr;
+
 class SongModel {
   final String title;
   final String album;
   final String artis;
   final String genre;
-  final Uri cover;
+  final amr.Picture cover;
   SongModel({
     required this.title,
     required this.album,
@@ -17,7 +19,7 @@ class SongModel {
     String? album,
     String? artis,
     String? genre,
-    Uri? cover,
+    amr.Picture? cover,
   }) {
     return SongModel(
       title: title ?? this.title,
