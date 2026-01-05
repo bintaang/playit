@@ -10,6 +10,7 @@ class LyricsState {
   final String errorMessage;
   final String plainLyrics;
   final List<LyricLine> syncedLyrics;
+  final int currentSongIndex;
 
   LyricsState({
     required this.isLoading,
@@ -17,6 +18,7 @@ class LyricsState {
     required this.errorMessage,
     required this.plainLyrics,
     required this.syncedLyrics,
+    required this.currentSongIndex,
   });
   LyricsState copyWith({
     bool? isLoading,
@@ -24,8 +26,10 @@ class LyricsState {
     String? errorMessage,
     String? plainLyrics,
     List<LyricLine>? syncedLyrics,
+    int? currentSongIndex,
   }) {
     return LyricsState(
+      currentSongIndex: currentSongIndex ?? this.currentSongIndex,
       isLoading: isLoading ?? this.isLoading,
       isError: isError ?? this.isError,
       errorMessage: errorMessage ?? this.errorMessage,
@@ -45,12 +49,14 @@ class LyricsCubit extends Cubit<LyricsState> {
           errorMessage: "",
           syncedLyrics: [],
           plainLyrics: "",
+          currentSongIndex: -1,
         ),
       );
 
   Future<void> fetchLyrics() async {
     final recentSong = _playerCubit.state.recentSong;
     final duration = _playerCubit.state.duration;
+    final indexSong = _playerCubit.playerControl.songIndex;
     final LyricsModel body = LyricsModel(
       track_name: recentSong.title,
       artist_name: recentSong.artis,
@@ -68,6 +74,7 @@ class LyricsCubit extends Cubit<LyricsState> {
           isError: false,
           isLoading: false,
           errorMessage: "",
+          currentSongIndex: indexSong,
         ),
       );
     } catch (e) {
@@ -77,6 +84,7 @@ class LyricsCubit extends Cubit<LyricsState> {
         isError: true,
         isLoading: false,
         errorMessage: e.toString(),
+        currentSongIndex: -1
       );
     }
   }

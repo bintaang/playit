@@ -24,6 +24,7 @@ dependencies:
   squiggly_slider: ^1.0.0
   palette_generator_master: ^1.0.1
   http: ^1.6.0
+  scrollable_positioned_list: ^0.3.8
 dev_dependencies:
   flutter_test:
     sdk: flutter
