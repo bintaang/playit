@@ -1,6 +1,3 @@
-import 'dart:typed_data';
-
-import 'package:audio_metadata_reader/audio_metadata_reader.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:playit/cubit/songs_cubit.dart';
 import 'package:playit/models/album_model.dart';
@@ -29,7 +26,11 @@ class AlbumCubit extends Cubit<AlbumSate> {
 
       if (!alreadyExists) {
         listAlbum.add(
-          AlbumModel(albumCover: song.cover, albumName: song.album),
+          AlbumModel(
+            albumCover: song.cover,
+            albumName: song.album,
+            albumSinger: song.artis,
+          ),
         );
       }
     }

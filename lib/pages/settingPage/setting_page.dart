@@ -20,6 +20,7 @@ class _SettingPageState extends State<SettingPage> {
     final permission = await Permission.audio.request();
     if (permission.isGranted) {
       final String? directory = await FilePicker.platform.getDirectoryPath();
+      print(directory);
       if (mounted) {
         print(directory);
         context.read<SongsCubit>().updateBaseUrl(directory!);

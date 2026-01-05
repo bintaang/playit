@@ -6,15 +6,18 @@ class SongModel {
   final String artis;
   final String genre;
   final amr.Picture cover;
+  final String path;
   SongModel({
     required this.title,
     required this.album,
     required this.artis,
     required this.genre,
     required this.cover,
+    required this.path,
   });
 
   SongModel copyWith({
+    String? path,
     String? title,
     String? album,
     String? artis,
@@ -27,6 +30,7 @@ class SongModel {
       artis: artis ?? this.artis,
       genre: genre ?? this.genre,
       cover: cover ?? this.cover,
+      path: path ?? this.path,
     );
   }
 }

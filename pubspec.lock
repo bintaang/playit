@@ -241,7 +241,7 @@ packages:
     source: hosted
     version: "2.16.0"
   http:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: http
       sha256: "87721a4a50b19c7f1d49001e51409bddc46303966ce89a65af4f4e6004896412"
@@ -400,6 +400,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.0"
+  palette_generator_master:
+    dependency: "direct main"
+    description:
+      name: palette_generator_master
+      sha256: "2b27a3d9f773c5bc407ed828589488777f73fa23cd24abe6a9b90249a41a7df0"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
   path:
     dependency: transitive
     description:
@@ -613,6 +621,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.4.0"
+  squiggly_slider:
+    dependency: "direct main"
+    description:
+      name: squiggly_slider
+      sha256: "68c08cb1b6c6bccafa8707844e36f3e61fa2860f32ed47bf11b3cd7af338ad46"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.5"
   stack_trace:
     dependency: transitive
     description:
@@ -726,5 +742,5 @@ packages:
     source: hosted
     version: "6.6.1"
 sdks:
-  dart: ">=3.10.4 <4.0.0"
+  dart: ">=3.10.4 <3.20.0"
   flutter: ">=3.35.0"

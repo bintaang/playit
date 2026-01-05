@@ -6,6 +6,8 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:playit/cubit/album_cubit.dart';
+import 'package:playit/cubit/lyrics_cubit.dart';
+import 'package:playit/cubit/player_cubit.dart';
 import 'package:playit/cubit/songs_cubit.dart';
 import 'package:playit/pages/root_page.dart';
 
@@ -23,6 +25,10 @@ Future<void> main() async {
         BlocProvider<AlbumCubit>(
           create: (context) =>
               AlbumCubit(songsListCubit: context.read<SongsListCubit>()),
+        ),
+        BlocProvider<PlayerCubit>(create: (context) => PlayerCubit()),
+        BlocProvider<LyricsCubit>(
+          create: (context) => LyricsCubit(context.read<PlayerCubit>()),
         ),
       ],
       child: MyApp(),

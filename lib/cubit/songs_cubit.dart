@@ -7,7 +7,7 @@ import 'package:playit/models/song_model.dart';
 class SongsState {
   final String baseUrl;
   SongsState({required this.baseUrl});
-  SongsState copyWith(String? baseUrl) {
+  SongsState copyWith({String? baseUrl}) {
     return SongsState(baseUrl: baseUrl ?? this.baseUrl);
   }
 
@@ -34,7 +34,7 @@ class SongsCubit extends HydratedCubit<SongsState> {
   }
 
   void updateBaseUrl(String newUrl) {
-    emit(state.copyWith(newUrl));
+    emit(state.copyWith(baseUrl: newUrl));
   }
 }
 
@@ -51,7 +51,7 @@ class SongsListCubit extends Cubit<SongsListState> {
   void fetchNewSong(String songPath) {
     List<SongModel> songs = [];
     final List<File> rawSong = Directory(songPath)
-        .listSync(recursive: true)
+        .listSync(recursive: true, followLinks: false)
         .whereType<File>()
         .where(
           (file) =>
@@ -62,16 +62,22 @@ class SongsListCubit extends Cubit<SongsListState> {
         .toList();
 
     for (var song in rawSong) {
-      final songData = readMetadata(song, getImage: true);
-      songs.add(
-        SongModel(
-          title: songData.title ?? "Unknown Title",
-          album: songData.album ?? "Unknown Album Name",
-          artis: songData.artist ?? "Unknown Artis",
-          genre: songData.genres.first,
-          cover: songData.pictures.first,
-        ),
-      );
+      try {
+        final songData = readMetadata(song, getImage: true);
+
+        songs.add(
+          SongModel(
+            title: songData.title ?? "Unknown Title",
+            album: songData.album ?? "Unkown Album",
+            artis: songData.artist ?? "Unkown Artist",
+            genre: songData.genres.first,
+            cover: songData.pictures.first,
+            path: songData.file.path,
+          ),
+        );
+      } catch (e) {
+        print("something is wrong: $e");
+      }
     }
     emit(state.copyWith(songs));
   }
