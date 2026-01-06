@@ -40,14 +40,18 @@ class SongsCubit extends HydratedCubit<SongsState> {
 
 class SongsListState {
   final List<SongModel> songs;
-  SongsListState({required this.songs});
-  SongsListState copyWith(List<SongModel>? songs) {
-    return SongsListState(songs: songs ?? this.songs);
+  final String baseUrl;
+  SongsListState({required this.songs, required this.baseUrl});
+  SongsListState copyWith(List<SongModel>? songs, String? baseUrl) {
+    return SongsListState(
+      songs: songs ?? this.songs,
+      baseUrl: baseUrl ?? this.baseUrl,
+    );
   }
 }
 
 class SongsListCubit extends Cubit<SongsListState> {
-  SongsListCubit() : super(SongsListState(songs: []));
+  SongsListCubit() : super(SongsListState(songs: [], baseUrl: ''));
   void fetchNewSong(String songPath) {
     List<SongModel> songs = [];
     final List<File> rawSong = Directory(songPath)
@@ -79,6 +83,6 @@ class SongsListCubit extends Cubit<SongsListState> {
         print("something is wrong: $e");
       }
     }
-    emit(state.copyWith(songs));
+    emit(state.copyWith(songs, songPath));
   }
 }

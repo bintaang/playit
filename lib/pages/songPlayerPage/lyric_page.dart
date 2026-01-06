@@ -83,11 +83,12 @@ class _LyricPageState extends State<LyricPage> {
                           return Center(child: CircularProgressIndicator());
                         }
                         return Padding(
-                          padding: const EdgeInsets.all(30.0),
+                          padding: const EdgeInsets.all(70.0),
                           child: Text(
+                            textAlign: TextAlign.center,
                             state.plainLyrics,
                             style: TextStyle(
-                              fontSize: context.screenSize.width * 0.06,
+                              fontSize: context.screenSize.width * 0.04,
                             ),
                           ),
                         );
@@ -126,30 +127,35 @@ class _LyricPageState extends State<LyricPage> {
                         itemBuilder: (context, index) {
                           final lyric = lyrics[index];
                           final isActive = index == currentIndex;
-                          return AnimatedDefaultTextStyle(
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              shadows: isActive
-                                  ? [
-                                      Shadow(
-                                        color: Colors.white,
-                                        blurRadius: 20,
-                                      ),
-                                    ]
-                                  : null,
-                              color: isActive
-                                  ? Colors.white
-                                  : Colors.white24.withAlpha(30),
-                              fontSize: isActive
-                                  ? context.screenSize.width * 0.07
-                                  : context.screenSize.width * 0.05,
-                            ),
-                            duration: Duration(milliseconds: 500),
-                            child: GestureDetector(
-                              onTap: () {
-                                context.read<PlayerCubit>().seekTo(lyric.time);
-                              },
-                              child: Text(lyric.text),
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 30.0),
+                            child: AnimatedDefaultTextStyle(
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                shadows: isActive
+                                    ? [
+                                        Shadow(
+                                          color: Colors.white,
+                                          blurRadius: 20,
+                                        ),
+                                      ]
+                                    : null,
+                                color: isActive
+                                    ? Colors.white
+                                    : Colors.white24.withAlpha(30),
+                                fontSize: isActive
+                                    ? context.screenSize.width * 0.07
+                                    : context.screenSize.width * 0.05,
+                              ),
+                              duration: Duration(milliseconds: 500),
+                              child: GestureDetector(
+                                onTap: () {
+                                  context.read<PlayerCubit>().seekTo(
+                                    lyric.time,
+                                  );
+                                },
+                                child: Text(lyric.text),
+                              ),
                             ),
                           );
                         },

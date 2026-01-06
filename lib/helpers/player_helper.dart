@@ -1,4 +1,6 @@
 import 'package:just_audio/just_audio.dart';
+import 'package:just_audio_background/just_audio_background.dart';
+import 'package:playit/helpers/uri_parser.dart';
 import 'package:playit/models/song_model.dart';
 
 class PlayerControl {
@@ -13,7 +15,21 @@ class PlayerControl {
     final newPlaylist = <AudioSource>[];
 
     for (var song in songs) {
-      newPlaylist.add(AudioSource.uri(Uri.parse(song.path)));
+      final artUri = await getArtUri(song.cover.bytes, song.title);
+      newPlaylist.add(
+        AudioSource.uri(
+          Uri.parse(song.path),
+          tag: MediaItem(
+            id: song.path,
+            title: song.title,
+            album: song.title,
+            duration: control.duration,
+            artist: song.artis,
+            artUri: artUri,
+            genre: song.genre,
+          ),
+        ),
+      );
     }
 
     await control.setAudioSources(
@@ -24,7 +40,7 @@ class PlayerControl {
       shuffleOrder: DefaultShuffleOrder(),
     );
 
-    await control.setLoopMode(LoopMode.all);
+    await control.setLoopMode(LoopMode.off);
     await control.play();
   }
 

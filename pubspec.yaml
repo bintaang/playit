@@ -25,6 +25,8 @@ dependencies:
   palette_generator_master: ^1.0.1
   http: ^1.6.0
   scrollable_positioned_list: ^0.3.8
+  rive_animated_icon: ^2.0.5
+  flutter_animate: ^4.5.2
 dev_dependencies:
   flutter_test:
     sdk: flutter

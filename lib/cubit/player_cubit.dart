@@ -14,6 +14,7 @@ class PlayerState {
   final Duration duration;
   final bool shuffleThisPlaylist;
   final bool repeatThisSong;
+
   PlayerState({
     required this.isPlaying,
     required this.isMinimized,
@@ -24,6 +25,7 @@ class PlayerState {
     required this.shuffleThisPlaylist,
     required this.repeatThisSong,
   });
+
   PlayerState copyWith({
     bool? isPlaying,
     bool? isMinimized,
@@ -91,7 +93,9 @@ class PlayerCubit extends Cubit<PlayerState> {
       }
     });
   }
+
   void playSong(List<SongModel> songs, int songIndex) {
+    if (playerControl.songIndex == songIndex || state.activePlaylist == songs) return;
     playerControl.playAudio(songs, songIndex);
     emit(state.copyWith(recentSong: songs[songIndex], activePlaylist: songs));
   }

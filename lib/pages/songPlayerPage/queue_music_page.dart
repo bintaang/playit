@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:playit/cubit/player_cubit.dart';
 import 'package:playit/helpers/queue_finder.dart';
 import 'package:playit/models/song_model.dart';
+import 'package:playit/pages/songPlayerPage/song_player_page.dart';
 import 'package:playit/utils/screen_detector.dart';
 
 class QueueMusicPage extends StatefulWidget {
@@ -15,6 +16,18 @@ class QueueMusicPage extends StatefulWidget {
 }
 
 class _QueueMusicPageState extends State<QueueMusicPage> {
+  void onClickMusic(String titleSong) {
+    final songs = context.read<PlayerCubit>().state.activePlaylist;
+    final songIndex = songs.indexWhere((song) => song.title == titleSong);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) =>
+            SongPlayerPage(songs: songs, songIndex: songIndex),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,6 +78,9 @@ class _QueueMusicPageState extends State<QueueMusicPage> {
                       itemBuilder: (context, index) {
                         final song = queueSongs[index];
                         return ListTile(
+                          onTap: () {
+                            onClickMusic(song.title);
+                          },
                           contentPadding: EdgeInsets.all(10),
                           title: Text(song.title),
                           leading: Container(
